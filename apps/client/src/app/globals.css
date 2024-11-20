@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-flow {
+  background: url("/flow-bg.svg") no-repeat center center;
+  background-size: cover;
+}

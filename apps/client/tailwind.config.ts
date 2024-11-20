@@ -8,7 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-
+      boxShadow: {
+        custom: "-2px 2px 3.8px 0px rgba(0, 0, 0, 0.30)",
+        custom2: "0px 3px 10.6px 0px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [],
