@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { FaGoogle, FaEnvelope, FaLock } from 'react-icons/fa';
+import { Mail, Lock, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SignIn() {
     const [email, setEmail] = useState('');
@@ -13,79 +14,105 @@ export default function SignIn() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 p-4 sm:p-6 lg:p-8">
-            <div className="w-full max-w-md space-y-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-3xl">
-                <div className="text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back</h2>
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Sign in to your account</p>
+        <main className="flex-grow min-h-screen p-6 bg-gray-50 flex items-center justify-center">
+            <div className="w-full max-w-md">
+                <div className="bg-white shadow-lg rounded-lg p-8 mb-6">
+                    <div className="text-center mb-6">
+                        <h2 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center">
+                            <Sparkles className="mr-2 text-[#0081C9]" />
+                            Welcome Back
+                        </h2>
+                        <p className="text-gray-600">Sign in to your account</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-4">
+                            <div className="relative">
+                                <Mail className="absolute top-3 left-3 text-gray-400" />
+                                <input
+                                    type="email"
+                                    required
+                                    className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0081C9] text-gray-800 transition-all duration-200"
+                                    placeholder="Email address"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="relative">
+                                <Lock className="absolute top-3 left-3 text-gray-400" />
+                                <input
+                                    type="password"
+                                    required
+                                    className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0081C9] text-gray-800 transition-all duration-200"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    id="remember-me"
+                                    type="checkbox"
+                                    className="h-4 w-4 text-[#0081C9] focus:ring-[#0081C9] border-gray-300 rounded"
+                                />
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-800">
+                                    Remember me
+                                </label>
+                            </div>
+                            <Link href="/auth/forgot-password" className="text-sm font-medium text-[#0081C9] hover:text-[#006BA8]">
+                                Forgot password?
+                            </Link>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 rounded-lg shadow-lg text-sm font-medium text-white bg-[#0081C9] hover:bg-[#006BA8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0081C9] transition-all duration-200"
+                        >
+                            Sign in
+                        </button>
+
+                        <div className="text-center">
+                            <p className="text-sm text-gray-600">
+                                Don't have an account?{' '}
+                                <Link href="/auth/sign-up" className="font-medium text-[#0081C9] hover:text-[#006BA8]">
+                                    Sign up
+                                </Link>
+                            </p>
+                        </div>
+
+                        <div className="relative my-4">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="px-2 bg-white text-gray-600">Or continue with</span>
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            className="w-full flex items-center justify-center py-2 px-4 rounded-lg shadow-lg text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 48 48"
+                                width="20"
+                                height="20"
+                                className="mr-2"
+                            >
+                                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+                                <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+                                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+                                <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+                            </svg>
+                            Sign in with Google
+                        </button>
+                    </form>
                 </div>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="space-y-4">
-                        <div className="relative">
-                            <FaEnvelope className="absolute top-3 left-3 text-gray-400" />
-                            <input
-                                type="email"
-                                required
-                                className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                                placeholder="Email address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                        <div className="relative">
-                            <FaLock className="absolute top-3 left-3 text-gray-400" />
-                            <input
-                                type="password"
-                                required
-                                className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <input
-                                id="remember-me"
-                                type="checkbox"
-                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                            />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                            Forgot password?
-                        </a>
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                    >
-                        Sign in
-                    </button>
-
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                        </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
-                        </div>
-                    </div>
-
-                    <button
-                        type="button"
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200"
-                    >
-                        <FaGoogle className="w-5 h-5 mr-2" />
-                        Sign in with Google
-                    </button>
-                </form>
             </div>
-        </div>
+        </main>
     );
 }
