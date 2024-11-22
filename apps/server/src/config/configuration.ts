@@ -1,8 +1,11 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import { User } from 'src/entities/user.entity';
+
+dotenv.config(); // Ensure .env is loaded
+
 export interface EnvironmentVariables {
     PORT: number;
-    // DATABASE_URL: string;
-    // API_KEY: string;
-
 }
 
 export function validateConfig(config: Record<string, unknown>): EnvironmentVariables {
@@ -10,25 +13,22 @@ export function validateConfig(config: Record<string, unknown>): EnvironmentVari
     if (isNaN(port)) {
         throw new Error('PORT must be a number');
     }
-
-    // const databaseUrl = config.DATABASE_URL;
-    // if (typeof databaseUrl !== 'string') {
-    //     throw new Error('DATABASE_URL must be a string');
-    // }
-
-    // const apiKey = config.API_KEY;
-    // if (typeof apiKey !== 'string') {
-    //     throw new Error('API_KEY must be a string');
-    // }
-
-
-
     return {
         PORT: port,
-        // DATABASE_URL: databaseUrl,
-        // API_KEY: apiKey,
-
     };
 }
+
+export const databaseConfig: TypeOrmModuleOptions = {
+    type: process.env.DB_TYPE as any,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT, 10),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    synchronize: process.env.DB_SYNC === 'true',
+    autoLoadEntities: process.env.DB_AUTOLOAD === 'true',
+    entities: [User],
+
+};
 
 export default () => validateConfig(process.env);

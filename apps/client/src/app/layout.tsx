@@ -2,6 +2,7 @@ import React from 'react';
 import '@/app/globals.css';
 import CustomLayout from '@/components/layout/CustomLayout';
 import ClientLayout from '@/components/layout/ClientLayout';
+import ApolloProviderComponent from '@/components/ApolloProvider';
 
 export default function RootLayout({
   children,
@@ -12,7 +13,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ClientLayout>
-          {children}
+          <ApolloProviderComponent>
+            {children}
+          </ApolloProviderComponent>
+
         </ClientLayout>
       </body>
     </html>
