@@ -54,7 +54,7 @@ const emailStyles = () => {
 };
 
 export const verificationEmailHtml = (firstname: string, token: string) => {
-  const url = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+  const url = `${process.env.CLIENT_URL}/auth/verify-email/${token}`;
   const html = `
     <!DOCTYPE html>
     <html>

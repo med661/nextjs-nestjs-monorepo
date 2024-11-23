@@ -10,7 +10,11 @@ export class AuthResolver {
   @Mutation(() => String) // Indicate that the return type is a String
   async register(@Args('registerInput') registerInput: RegisterInput): Promise<any> {
     return await this.authService.register(registerInput)
+  }
 
+  @Mutation(() => String)
+  async verification(@Args('token') token: string): Promise<string> {
+    return await this.authService.verifyEmail(token)
   }
 
 }

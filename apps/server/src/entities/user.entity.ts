@@ -51,12 +51,53 @@ export class User {
     imageUrl: string;
 
     @Field(() => Boolean)
-    @Column({ default: false })
+    @Column({ default: true })
     isEmailVerified: boolean;
 
     @Field(() => Role)
     @Column({ type: 'enum', enum: Role, default: Role.USER })
     role: Role;
+
+
+    @Field()
+    @Column({ default: '' })
+    address: string;
+
+    @Field()
+    @Column({ default: '' })
+    header: string;
+
+
+    @Field()
+    @Column({ default: '' })
+    bio: string;
+
+    @Field()
+    @Column({ default: '' })
+    instagram: string;
+
+    @Field()
+    @Column({ default: '' })
+    gitHub: string;
+
+
+    @Field()
+    @Column({ default: '' })
+    linkedIn: string;
+
+
+    @Field()
+    @Column({ default: '' })
+    x: string;
+
+
+    @Field()
+    @Column({ default: '' })
+    otherLink: string;
+
+    @Field()
+    @Column({ default: '' })
+    resume: string;
 
     @Field()
     @CreateDateColumn()

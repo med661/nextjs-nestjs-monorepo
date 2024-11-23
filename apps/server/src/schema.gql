@@ -17,6 +17,7 @@ type Mutation {
   register(registerInput: RegisterInput!): String!
   removeUser(id: Int!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
+  verification(token: String!): String!
 }
 
 type Query {
@@ -43,16 +44,25 @@ input UpdateUserInput {
 }
 
 type User {
+  address: String!
+  bio: String!
   createdAt: DateTime!
   email: String!
   firstName: String!
   fullName: String!
+  gitHub: String!
+  header: String!
   id: ID!
   imageUrl: String
+  instagram: String!
   isEmailVerified: Boolean!
   lastName: String!
+  linkedIn: String!
+  otherLink: String!
   password: String!
   phone: String
+  resume: String!
   role: Role!
   updatedAt: DateTime!
+  x: String!
 }
