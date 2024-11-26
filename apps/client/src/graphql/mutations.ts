@@ -10,3 +10,17 @@ mutation Verification($token: String!) {
     verification(token: $token)
 }
 `;
+export const LOGIN_USER = gql`
+    mutation Login($loginInput: LoginInput!) {
+        login(loginInput: $loginInput) {
+            accessToken
+            user {
+                userId
+                email
+                fullName
+                isEmailVerified
+                role
+            }
+        }
+    }
+`;

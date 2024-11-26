@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './auth/http-exception';
 
 async function bootstrap() {
   console.log('Server is running');
@@ -14,6 +15,8 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
     credentials: true, // Allow credentials (if needed)
   });
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   await app.listen(process.env.PORT);
 }
 bootstrap();

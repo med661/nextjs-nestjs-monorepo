@@ -3,14 +3,42 @@
 import { useState } from 'react';
 import { Mail, Lock, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { LOGIN_USER } from '@/graphql/mutations';
+import { useMutation } from '@apollo/client';
+import { setAuthToken, getAuthToken } from '@/lib/auth'; // Import setAuthToken
+
 
 export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // State for error messages
+
+    const [loginUser] = useMutation(LOGIN_USER, {
+        onError: (error) => {
+            console.error('Error:', error);
+            setErrorMessage(error.message);
+        },
+        onCompleted: (data) => {
+            console.log('Login response:', data);
+            if (data.login.error) {
+                setErrorMessage(data.login.error); // Set error message from the response
+            } else {
+                console.log('Login successful:', data.login.accessToken, data.login.user);
+                setAuthToken(data.login.accessToken); // Set the auth token
+                console.log('Auth token set:', getAuthToken())
+                setErrorMessage(''); // Clear error message on successful login
+            }
+        }
+    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Email:', email, 'Password:', password);
+        setErrorMessage(''); // Clear previous error message
+        try {
+            await loginUser({ variables: { loginInput: { email, password } } });
+        } catch (error) {
+            // Error handling is done in onError callback
+        }
     };
 
     return (
@@ -24,6 +52,12 @@ export default function SignIn() {
                         </h2>
                         <p className="text-gray-600">Sign in to your account</p>
                     </div>
+
+                    {errorMessage && (
+                        <div className="mb-4 text-red-500 text-center">
+                            {errorMessage} {/* Display error message */}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-4">
