@@ -26,6 +26,7 @@ type LoginResponse {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   login(loginInput: LoginInput!): LoginResponse!
+  logout: String!
   register(registerInput: RegisterInput!): String!
   removeUser(id: Int!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
@@ -33,6 +34,7 @@ type Mutation {
 }
 
 type Query {
+  getPrivateData: String!
   user(id: Int!): User!
 }
 

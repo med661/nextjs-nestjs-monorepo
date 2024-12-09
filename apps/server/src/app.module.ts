@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      context: ({ req }) => ({ req }), // Pass the request object to the context
     }),
     ConfigModule.forRoot({
       load: [configuration],

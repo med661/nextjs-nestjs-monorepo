@@ -206,7 +206,8 @@ export class AuthService {
       updatedAt: user.updatedAt,
 
     };
-    return this.jwtService.sign(payload, { expiresIn: '24h' });
+    let secret = this.configService.get<string>('ACCESS_TOKEN_SECRET');
+    return this.jwtService.sign(payload, { secret, expiresIn: '24h' });
   }
 
 

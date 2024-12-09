@@ -5,6 +5,7 @@ import { EmailService } from 'src/services/email.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]),
@@ -14,6 +15,6 @@ import { JwtModule } from '@nestjs/jwt';
   })
 
   ], // Register User entity
-  providers: [AuthResolver, AuthService, EmailService],
+  providers: [AuthResolver, AuthService, EmailService, JwtStrategy],
 })
 export class AuthModule { }

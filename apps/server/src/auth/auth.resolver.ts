@@ -1,10 +1,11 @@
 import { LoginResponse } from './responses/index';
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { Auth } from './entities/auth.entity';
 import { LoginInput, RegisterInput } from './dto/auth.input';
 import { User } from 'src/entities/user.entity';
-import { HttpException } from '@nestjs/common';
+import { HttpException, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from './guards/auth.guard';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -24,4 +25,16 @@ export class AuthResolver {
     return response; // Return the response directly
   }
 
+  @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
+  async logout(): Promise<string> {
+    return "Successfully logged out"; // Return a success message
+  }
+
+  @Query(() => String)
+  @UseGuards(JwtAuthGuard) // Protect this route with JwtAuthGuard
+  async getPrivateData(): Promise<string> {
+    // This is a private route that requires authentication
+    return "This is private data"; // Return some private data
+  }
 }

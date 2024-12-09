@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './auth/http-exception';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   console.log('Server is running');
@@ -16,6 +17,8 @@ async function bootstrap() {
     credentials: true, // Allow credentials (if needed)
   });
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe());
+
 
   await app.listen(process.env.PORT);
 }
